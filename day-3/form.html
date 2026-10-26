@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="#" method="" id="form-todo">
+      <label for="">tugas:</label>
+      <input type="text" id="task" /><br />
+      <label for="">kategori:</label>
+      <input type="text" id="kategori" /><br />
+      <button type="submit" id="tambah">Simpan</button>
+    </form>
+
+    <table border="1" id="tabel">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Task</th>
+          <th>Kategori</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="table-tugas"></tbody>
+    </table>
+    <script>
+      const formTodo = document.querySelector("#form-todo");
+      const task = document.querySelector("#task");
+      const kategori = document.querySelector("#kategori");
+      const tableTugas = document.querySelector("#table-tugas");
+      let nomor = 1;
+
+      formTodo.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const tugasText = task.value.trim();
+        const kategoriText = kategori.value.trim();
+
+        //alert("tugas berhasil ditambahkan", tugasText, kategoriText);
+        let tr = document.createElement("tr");
+        const noUrut = document.createElement("td");
+        noUrut.textContent = nomor++;
+        tr.appendChild(noUrut);
+        tableTugas.appendChild(tr);
+        const tugasShow = document.createElement("td");
+        tugasShow.textContent = tugasText;
+        tr.appendChild(tugasShow);
+        const kategoriShow = document.createElement("td");
+        kategoriShow.textContent = kategoriText;
+        tr.appendChild(kategoriShow);
+        const btnShow = document.createElement("td");
+        const btnDelete = document.createElement("button");
+        btnDelete.textContent = "Hapus";
+        btnDelete.className = "btn-remove";
+        btnShow.appendChild(btnDelete);
+        tr.appendChild(btnShow);
+
+        formTodo.reset();
+        //tableTugas.appendChild(tr);
+        // tableTugas.innerHTML += `
+        //   <tr>
+        //     <td>${nomor++}</td>
+        //     <td>${tugasText}</td>
+        //     <td>${kategoriText}</td>
+        //     <td></td>
+        //   </tr>
+        // `;
+      });
+
+      tableTugas.addEventListener("click", function (e) {
+        if (e.target.classList.contains("btn-remove")) {
+          const row = e.target.closest("tr");
+          row.remove();
+        }
+      });
+    </script>
+  </body>
+</html>
